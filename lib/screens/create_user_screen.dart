@@ -63,7 +63,7 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
             builder: (context) {
               return AlertDialog(
                 title: const Text(
-                  'هل تريد الخروج؟',
+                  'Do you want to leave?',
                   textAlign: TextAlign.center,
                 ),
                 actionsAlignment: MainAxisAlignment.center,
@@ -72,13 +72,13 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
                     onPressed: () {
                       Navigator.of(context).pop(false);
                     },
-                    child: const Text('لا'),
+                    child: const Text('NO'),
                   ),
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pop(true);
                     },
-                    child: const Text('نعم'),
+                    child: const Text('YES'),
                   ),
                 ],
               );
