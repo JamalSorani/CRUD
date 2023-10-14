@@ -5,15 +5,7 @@ import 'package:http/http.dart' as http;
 
 import '../screens/list_user.dart';
 
-List<inf> myList = [];
-
-class Lists with ChangeNotifier {
-  String id2;
-  String Name;
-  final String Email;
-  final int Mobile;
-  Lists(this.id2, this.Name, this.Email, this.Mobile);
-}
+List<Inf> myList = [];
 
 var noUsers = false;
 Future<void> fetshAndSetUsers() async {
@@ -23,14 +15,14 @@ Future<void> fetshAndSetUsers() async {
     final response = await http.get(url);
     final extract = json.decode(response.body) as Map<String, dynamic>;
 
-    List<inf> loaded = [];
+    List<Inf> loaded = [];
     extract.forEach(
       (userId, userData) {
-        loaded.add(inf(
+        loaded.add(Inf(
             id: userData['id'],
             id1: userId,
-            Name: userData['Name'],
-            Email: userData['Email'],
+            name: userData['Name'],
+            email: userData['Email'],
             m: userData['m']));
       },
     );
@@ -42,7 +34,7 @@ Future<void> fetshAndSetUsers() async {
   return;
 }
 
-Future<void> addUser(inf user, context) async {
+Future<void> addUser(Inf user, context) async {
   final url =
       Uri.https('crud-ad31e-default-rtdb.firebaseio.com', '/lists.json');
   await http
@@ -50,36 +42,36 @@ Future<void> addUser(inf user, context) async {
           body: json.encode({
             'id': user.id,
             'id1': DateTime.now().toString(),
-            'Name': user.Name,
-            'Email': user.Email,
+            'Name': user.name,
+            'Email': user.email,
             'm': user.m,
           }))
       .then((response) {
-    final newUser = inf(
+    final newUser = Inf(
         id: user.id,
         id1: json.decode(response.body)['name'],
-        Name: user.Name,
-        Email: user.Email,
+        name: user.name,
+        email: user.email,
         m: user.m);
     myList.add(newUser);
-    Navigator.of(context).pushNamed(ListUserScreen.list);
+    Navigator.of(context).pushReplacementNamed(ListUserScreen.list);
   });
 }
 
-Future<void> updateUser(String id, inf user, context) async {
+Future<void> updateUser(String id, Inf user, context) async {
   final index = myList.indexWhere((val) => val.id1 == id);
 
   final url =
       Uri.https('crud-ad31e-default-rtdb.firebaseio.com', '/lists/$id.json');
   await http.patch(url,
       body: json.encode({
-        'Name': user.Name,
-        'Email': user.Email,
+        'Name': user.name,
+        'Email': user.email,
         'm': user.m,
       }));
   myList[index] = user;
   fetshAndSetUsers();
-  Navigator.of(context).pushNamed(ListUserScreen.list);
+  Navigator.of(context).pushReplacementNamed(ListUserScreen.list);
 }
 
 Future<void> deleteUser(String id, context) async {
@@ -91,5 +83,5 @@ Future<void> deleteUser(String id, context) async {
     myList.insert(index, deletedUser);
   });
   myList.removeAt(index);
-  Navigator.of(context).pushNamed(ListUserScreen.list);
+  Navigator.of(context).pushReplacementNamed(ListUserScreen.list);
 }

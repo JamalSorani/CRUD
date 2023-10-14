@@ -1,28 +1,20 @@
-// ignore: file_names
 import 'package:flutter/material.dart';
 import '../widgets/lists.dart';
 import '../widgets/inf.dart';
 import '../widgets/my_bar.dart';
 
-// ignore: must_be_immutable
 class EditUserScreen extends StatefulWidget {
-  int id;
-  // ignore: non_constant_identifier_names
-  final String Name;
-  // ignore: non_constant_identifier_names
-  final String Email;
-  // ignore: non_constant_identifier_names
-  final String Mobile;
+  final int id;
+  final String name;
+  final String email;
+  final String mobile;
   final String id1;
-  EditUserScreen(
+  const EditUserScreen(
       {super.key,
       required this.id,
-      // ignore: non_constant_identifier_names
-      required this.Name,
-      // ignore: non_constant_identifier_names
-      required this.Email,
-      // ignore: non_constant_identifier_names
-      required this.Mobile,
+      required this.name,
+      required this.email,
+      required this.mobile,
       required this.id1});
 
   @override
@@ -34,11 +26,11 @@ class _EditUserScreenState extends State<EditUserScreen> {
   final emailFocus = FocusNode();
   final mobileFocus = FocusNode();
   bool isLoading = false;
-  var edit = inf(
+  var edit = const Inf(
     id: 1,
     id1: '',
-    Name: '',
-    Email: '',
+    name: '',
+    email: '',
     m: '',
   );
 
@@ -100,7 +92,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
                     ),
                     TextFormField(
                       keyboardType: TextInputType.text,
-                      initialValue: widget.Name,
+                      initialValue: widget.name,
                       decoration:
                           const InputDecoration(border: OutlineInputBorder()),
                       textInputAction: TextInputAction.next,
@@ -114,11 +106,11 @@ class _EditUserScreenState extends State<EditUserScreen> {
                         FocusScope.of(context).requestFocus(emailFocus);
                       },
                       onSaved: (newValue) {
-                        edit = inf(
+                        edit = Inf(
                           id: widget.id,
                           id1: widget.id1,
-                          Name: newValue!,
-                          Email: widget.Email,
+                          name: newValue!,
+                          email: widget.email,
                           m: edit.m,
                         );
                       },
@@ -133,7 +125,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
                       style: TextStyle(fontSize: 20),
                     ),
                     TextFormField(
-                      initialValue: widget.Email,
+                      initialValue: widget.email,
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
                       decoration: const InputDecoration(
@@ -150,11 +142,11 @@ class _EditUserScreenState extends State<EditUserScreen> {
                         return null;
                       },
                       onSaved: (newValue) {
-                        edit = inf(
+                        edit = Inf(
                           id: widget.id,
                           id1: edit.id1,
-                          Name: edit.Name,
-                          Email: newValue!,
+                          name: edit.name,
+                          email: newValue!,
                           m: edit.m,
                         );
                       },
@@ -172,7 +164,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
                       textInputAction: TextInputAction.done,
                       keyboardType: TextInputType.number,
                       focusNode: mobileFocus,
-                      initialValue: widget.Mobile,
+                      initialValue: widget.mobile,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                       ),
@@ -186,11 +178,11 @@ class _EditUserScreenState extends State<EditUserScreen> {
                       },
                       onSaved: (newValue) {
                         String a = newValue!;
-                        edit = inf(
+                        edit = Inf(
                           id: widget.id,
                           id1: edit.id1,
-                          Name: edit.Name,
-                          Email: edit.Email,
+                          name: edit.name,
+                          email: edit.email,
                           m: a,
                         );
                       },
@@ -198,22 +190,22 @@ class _EditUserScreenState extends State<EditUserScreen> {
                     const SizedBox(
                       height: 4,
                     ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(),
-                      onPressed: () {
-                        if (formkey.currentState!.validate()) {
-                          setState(() {
-                            isLoading = true;
-                          });
-                          updateForm();
-                        }
-                      },
-                      child: isLoading
-                          ? const CircularProgressIndicator(
-                              color: Colors.red,
-                            )
-                          : const Text('Edit'),
-                    ),
+                    isLoading
+                        ? const CircularProgressIndicator(
+                            color: Colors.red,
+                          )
+                        : ElevatedButton(
+                            style: ElevatedButton.styleFrom(),
+                            onPressed: () {
+                              if (formkey.currentState!.validate()) {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                updateForm();
+                              }
+                            },
+                            child: const Text('Edit'),
+                          ),
                     const SizedBox(
                       height: 20,
                     ),

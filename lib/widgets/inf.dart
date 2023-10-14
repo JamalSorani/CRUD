@@ -1,35 +1,29 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:crud/widgets/lists.dart';
 import 'package:flutter/material.dart';
 
-import '../screens/editUserScreen.dart';
+import '../screens/edit_user_screen.dart';
 
-class inf extends StatefulWidget {
-  int id;
-  String id1;
-  // ignore: non_constant_identifier_names
-  String Name;
-  // ignore: non_constant_identifier_names
-  String Email;
-  String m;
-  inf({
+class Inf extends StatefulWidget {
+  final int id;
+  final String id1;
+  final String name;
+  final String email;
+  final String m;
+  const Inf({
     super.key,
     required this.id,
     required this.id1,
-    // ignore: non_constant_identifier_names
-    required this.Name,
-    // ignore: non_constant_identifier_names
-    required this.Email,
+    required this.name,
+    required this.email,
     required this.m,
   });
 
   @override
-  State<inf> createState() => _infState();
+  State<Inf> createState() => _InfState();
 }
 
 // ignore: camel_case_types
-class _infState extends State<inf> {
+class _InfState extends State<Inf> {
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -61,7 +55,7 @@ class _infState extends State<inf> {
                 width: x2,
                 child: Text(
                   textAlign: TextAlign.center,
-                  widget.Name,
+                  widget.name,
                   style: const TextStyle(
                     color: Colors.black,
                   ),
@@ -71,7 +65,7 @@ class _infState extends State<inf> {
                 width: x3,
                 child: Text(
                   textAlign: TextAlign.center,
-                  widget.Email,
+                  widget.email,
                   style: const TextStyle(
                     color: Colors.black,
                   ),
@@ -89,13 +83,13 @@ class _infState extends State<inf> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => EditUserScreen(
                             id: widget.id,
                             id1: widget.id1,
-                            Name: widget.Name,
-                            Email: widget.Email,
-                            Mobile: widget.m,
+                            name: widget.name,
+                            email: widget.email,
+                            mobile: widget.m,
                           )));
                 },
                 child: Container(

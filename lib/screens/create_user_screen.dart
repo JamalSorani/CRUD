@@ -19,11 +19,11 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
   bool isLoading = false;
-  var edit = inf(
+  var edit = Inf(
     id: 2,
     id1: DateTime.now().toString(),
-    Name: '',
-    Email: '',
+    name: '',
+    email: '',
     m: '0912345678',
   );
   @override
@@ -37,11 +37,11 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
     formkey.currentState!.save();
 
     await addUser(
-        inf(
+        Inf(
           id: CreateUserScreen.id++,
           id1: edit.id1,
-          Name: edit.Name,
-          Email: edit.Email,
+          name: edit.name,
+          email: edit.email,
           m: edit.m,
         ),
         context);
@@ -143,11 +143,11 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
                               FocusScope.of(context).requestFocus(emailFocus);
                             },
                             onSaved: (newValue) {
-                              edit = inf(
+                              edit = Inf(
                                 id: CreateUserScreen.id,
                                 id1: edit.id1,
-                                Name: newValue!,
-                                Email: edit.Email,
+                                name: newValue!,
+                                email: edit.email,
                                 m: edit.m,
                               );
                             },
@@ -178,11 +178,11 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
                               return null;
                             },
                             onSaved: (newValue) {
-                              edit = inf(
+                              edit = Inf(
                                 id: CreateUserScreen.id,
                                 id1: edit.id1,
-                                Name: edit.Name,
-                                Email: newValue!,
+                                name: edit.name,
+                                email: newValue!,
                                 m: edit.m,
                               );
                             },
@@ -214,11 +214,11 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
                               return null;
                             },
                             onSaved: (newValue) {
-                              edit = inf(
+                              edit = Inf(
                                 id: CreateUserScreen.id,
                                 id1: edit.id1,
-                                Name: edit.Name,
-                                Email: edit.Email,
+                                name: edit.name,
+                                email: edit.email,
                                 m: newValue!,
                               );
                             },
@@ -226,21 +226,21 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
                           const SizedBox(
                             height: 4,
                           ),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(),
-                            onPressed: () {
-                              if (formkey.currentState!.validate()) {
-                                setState(() {
-                                  isLoading = true;
-                                });
-                                saveForm();
-                              }
-                            },
-                            child: isLoading
-                                ? const CircularProgressIndicator(
-                                    color: Colors.red)
-                                : const Text('SAVE'),
-                          ),
+                          isLoading
+                              ? const CircularProgressIndicator(
+                                  color: Colors.red)
+                              : ElevatedButton(
+                                  style: ElevatedButton.styleFrom(),
+                                  onPressed: () {
+                                    if (formkey.currentState!.validate()) {
+                                      setState(() {
+                                        isLoading = true;
+                                      });
+                                      saveForm();
+                                    }
+                                  },
+                                  child: const Text('SAVE'),
+                                ),
                           const SizedBox(
                             height: 20,
                           ),

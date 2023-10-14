@@ -173,11 +173,11 @@ class _ListUserScreenState extends State<ListUserScreen> {
                         itemCount: myList.length,
                         itemBuilder: (_, i) => Column(
                           children: [
-                            inf(
+                            Inf(
                               id: i + 1,
                               id1: myList[i].id1,
-                              Name: myList[i].Name,
-                              Email: myList[i].Email,
+                              name: myList[i].name,
+                              email: myList[i].email,
                               m: myList[i].m,
                             )
                           ],
